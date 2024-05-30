@@ -95,13 +95,14 @@ layout: default
 				{
 					"template": "[data-yes]",
 					"test": "fn:isArray",
-					"value": "/dependencies",
+					"value": "/dependencies/{{lng}}",
 					"mapping": [
 						{
 							"template": "template",
-							"value": "/",
+							"assess": "/dependencies/{{lng}}",
 							"mapping": [
-								{ "selector": "li", "value": "/@value" }
+								{ "selector": "a", "value": "/title" },
+								{ "selector": "a", "value": "/url", "attr": "href" }
 							]
 						}
 					]
@@ -112,19 +113,26 @@ layout: default
 					"test": "fn:isLiteral",
 					"value": "/dependencies",
 					"mapping": null
+				},
+				{
+					"template": "[data-no]",
+					"test": "fn:guessType",
+					"expect": "undefined",
+					"value": "/dependencies",
+					"mapping": null
 				}
 			]
 		}
 	]
 }'>
 	<template data-no>
-		<p>{% if lng == "fr" %}Ce composant n'a pas de dépendances{% else %}This component has no dependency{% endif %}</p>
+		<p>{% if lng == "fr" %}Ce composant n'a pas de dépendances{% else %}This component has no dependency{% endif %}.</p>
 	</template>
 
 	<template data-yes>
 		<ul>
 			<template>
-				<li></li>
+				<li><a href="#">Component</a></li>
 			</template>
 		</ul>
 	</template>
@@ -313,6 +321,19 @@ layout: default
 									"mapping": [
 										{ "selector": "li",	"value": "/", "isHTML": true }
 									]
+								}
+							]
+						},
+
+						{
+							"template": "[data-ajax-source-code]",
+							"test": "fn:isLiteral",
+							"assess": "/ajaxSourceCode/{{lng}}",
+							"mapping": [
+								{
+									"selector": "code",
+									"value": "/ajaxSourceCode/{{lng}}",
+									"attr": "data-ajax-append"
 								}
 							]
 						},
@@ -524,6 +545,10 @@ layout: default
 										<li>Instruction</li>
 									</template>
 								</ul>
+							</template>
+
+							<template data-ajax-source-code>
+								<pre><code data-wb-ajax='{ "encode": true }'></code></pre>
 							</template>
 
 							<template data-notes>
