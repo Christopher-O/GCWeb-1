@@ -45,7 +45,7 @@ todos:
   - Finalize design
 
 changes:
-   - Change: replaced colon from invisible text example for PDF forms with non-breaking space character
+  - Change: replaced colon from invisible text example for PDF forms with non-breaking space character
     How this affects design: Avoids JAWS high fidelity reading to say "colon" while preserving full number readout for NVDA (e.g. 50 thousand dollars, instead of 50 comma 0 0 0)
   - Change: Add separation to rows rather than padding of cells, and to fix override issue
     How this affects design: Adds no visual difference, except when using borders, borders will now have better separation.
